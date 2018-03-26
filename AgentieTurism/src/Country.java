@@ -1,6 +1,11 @@
 import java.util.*;
 
 public class Country {
+	@Override
+	public String toString() {
+		return "Country [countryName=" + countryName + "]";
+	}
+
 	private String countryName;
 	private List<District> districts;
 	
@@ -9,7 +14,7 @@ public class Country {
 		this.districts = new Vector<>();
 	}
 	
-	public String getcountryName() {
+	public String getCountryName() {
 		return countryName;
 	}
 	
@@ -32,6 +37,30 @@ public class Country {
 		return null;
 	}
 	
-	
-	
+	/*
+	 * get top5 places from a country
+	 */
+	public List<Place> getTop5(String startDate, String endDate) {
+		List<Place> top5 = new Vector<>();
+		PriorityQueue<Place> pq = new PriorityQueue<>(new Comparator<Place>() {
+
+			@Override
+			public int compare(Place p1, Place p2) {
+				return p1.getPricePerDay().compareTo(p2.getPricePerDay());
+			}
+			
+		});
+		for (District district : districts) {
+			List<City> list = district.getCities();
+			for (City city : list)
+				pq.addAll(city.getPlaces());
+		}
+		for (int i = 0; i < 5; i++) {
+			Place place = pq.poll();
+			if (place != null) {
+				top5.add(place);
+			}
+		}
+		return top5;
+	}
 }

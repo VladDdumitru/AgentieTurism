@@ -2,21 +2,34 @@ import java.util.*;
 
 public class Place {
 	private String placeName;
-	private String cityName;
+	private City city;
 	private Double pricePerDay;
 	private List<String> activities;
-	private Date beginDate;
-	private Date endDate;
+	private String startDate;
+	private String endDate;
 	
-	public Place(String placeName, String cityName, Double pricePerDay, List<String> activities, Date beginDate, Date endDate) {
+	public Place(String placeName, City city, Double pricePerDay,
+			List<String> activities, String startDate, String endDate) {
 		this.placeName = placeName;
-		this.cityName = cityName;
+		this.city = city;
 		this.pricePerDay = pricePerDay;
 		this.activities = activities;
-		this.beginDate = beginDate;
+		this.startDate = startDate;
 		this.endDate = endDate;
 	}
 
+	/*
+	 * print infos
+	 */
+	public void printInfo() {
+		System.out.println("---- " + placeName + " ----");
+		System.out.println("Country, District, City: " + city.getCountry().getCountryName() + ", " +
+				city.getDistrict().getDistrictName() + ", " + city.getCityName());
+		System.out.println("Price per day: " + pricePerDay);
+		System.out.println("Activities: " + activities);
+		System.out.println("Period: " + startDate + "-" + endDate);
+	}
+	
 	public String getPlaceName() {
 		return placeName;
 	}
@@ -25,12 +38,13 @@ public class Place {
 		this.placeName = placeName;
 	}
 
-	public String getCityName() {
-		return cityName;
+	public City getCity() {
+		return city;
 	}
 
-	public void setCityName(String cityName) {
-		this.cityName = cityName;
+	@Override
+	public String toString() {
+		return "Place [placeName=" + placeName + "]";
 	}
 
 	public Double getPricePerDay() {
@@ -49,21 +63,19 @@ public class Place {
 		this.activities = activities;
 	}
 
-	public Date getBeginDate() {
-		return beginDate;
+	public String getStartDate() {
+		return startDate;
 	}
 
-	public void setBeginDate(Date beginDate) {
-		this.beginDate = beginDate;
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
-	}
-	
-	
+	}	
 }

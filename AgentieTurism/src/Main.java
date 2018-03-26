@@ -1,4 +1,5 @@
 import java.io.FileWriter;
+import java.text.SimpleDateFormat;
 import java.util.Random;
 import java.util.*;
 
@@ -10,14 +11,27 @@ public class Main {
 	 */
 	private static final int N = 20;
 	private static int noCities;
+	private static String filename = "nume.txt";
 	
+	@SuppressWarnings("deprecation")
 	public static void main(String []args) {
 		Agency agency = new Agency();
 		noCities = (int)Math.pow(agency.N, 3) - 1;
+		//generateFilesWithPlaces();
 		agency.generateData();
+		agency.readData(filename);
 		agency.printHierarchy();
-		
-		generateFilesWithPlaces();
+		agency.printHashtables();
+		agency.getPlace("Place17");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+		String startDate = "" + format.format(new Date(2018 - 1900, 0, 1));
+		String endDate = "" + format.format(new Date(2018 - 1900, 11, 1));
+		System.out.println(startDate);
+		System.out.println(endDate);
+		List<Place> top5 = agency.getTop5Country("Country0", startDate, endDate);
+		for (Place place : top5) {
+			System.out.println(place.getPlaceName() + " - " + place.getPricePerDay());
+		}
 	}
 	
 	/* 
@@ -26,7 +40,7 @@ public class Main {
 	 */
 	@SuppressWarnings("deprecation")
 	public static void generateFilesWithPlaces() {
-		String outFile = "nume.txt";
+		String outFile = filename;
 		List<String> activities = new Vector<>();
 		activities.add("surfing");
 		activities.add("trasee montane");
@@ -57,11 +71,12 @@ public class Main {
 					index3 = rand.nextInt(activities.size());
 				}
 				fw.write(activities.get(index3) + ";");
-				int month = rand.nextInt(12) + 1;
-				int day = rand.nextInt(20) + 1;
-				String dateBegin = "" + new Date(2018, month, day);
-				String dateEnd = "" + new Date(2018, month, day + 7);
-				fw.write(dateBegin + " - " + dateEnd);
+				int month = rand.nextInt(12);
+				int day = rand.nextInt(20);
+				SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+				String dateBegin = "" + format.format(new Date(2018 - 1900, month, day));
+				String dateEnd = "" + format.format(new Date(2018 - 1900, month, day + 6));
+				fw.write(dateBegin + "-" + dateEnd);
 				fw.write("\n");
 			}
 		} catch (Exception e) {
