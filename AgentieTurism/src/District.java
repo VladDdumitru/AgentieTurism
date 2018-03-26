@@ -55,8 +55,12 @@ public class District {
 			
 		});
 		for (City city : cities) {
-			List<Place> list = city.getPlaces();
-			pq.addAll(list);
+			for (Place place : city.getPlaces()) {
+				if (place.getStartDate().compareTo(startDate) >= 0 &&
+						place.getEndDate().compareTo(endDate) <= 0) {
+					pq.add(place);
+				}
+			}
 		}
 		for (int i = 0; i < 5; i++) {
 			Place place = pq.poll();
@@ -65,5 +69,23 @@ public class District {
 			}
 		}
 		return top5;
+	}
+	
+	/*
+	 * get best price from a district
+	 */
+	public Place bestPrice() {
+		double bestPrice = Double.MAX_VALUE;
+		Place best = null;
+		for (City city : cities) {
+			Place place = city.bestPrice();
+			if(place != null) {
+				if (place.getPricePerDay() < bestPrice) {
+					best = place;
+					bestPrice = place.getPricePerDay();
+				}
+			}
+		}
+		return best;
 	}
 }

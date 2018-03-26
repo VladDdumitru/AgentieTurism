@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.*;
 
-
 public class Agency {
 
 	/*
@@ -26,6 +25,33 @@ public class Agency {
 		} catch (NullPointerException e) {
 			System.out.println("This place doesn't exist !!!");
 		}
+	}
+	
+	public Place bestPriceCountry(String countryName) {
+		Country country = hashCountry.get(countryName);
+		Place place = null;
+		if (country != null) {
+			place = country.bestPrice();
+		}
+		return place;
+	}
+	
+	public Place bestPriceDistrict(String districtName) {
+		District district = hashDistrict.get(districtName);
+		Place place = null;
+		if (district != null) {
+			place = district.bestPrice();
+		}
+		return place;
+	}
+	
+	public Place bestPriceCity(String cityName) {
+		City city = hashCity.get(cityName);
+		Place place = null;
+		if (city != null) {
+			city.bestPrice();
+		}
+		return place;
 	}
 	
 	@SuppressWarnings("finally")
@@ -74,6 +100,7 @@ public class Agency {
 		System.out.println(hashPlace);
 		System.out.println(hashCity); 
 		System.out.println(hashDistrict);
+		System.out.println(hashCountry);
 	}
 	
 	/*

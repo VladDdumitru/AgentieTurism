@@ -52,8 +52,14 @@ public class Country {
 		});
 		for (District district : districts) {
 			List<City> list = district.getCities();
-			for (City city : list)
-				pq.addAll(city.getPlaces());
+			for (City city : list) {
+				for (Place place : city.getPlaces()) {
+					if (place.getStartDate().compareTo(startDate) >= 0 &&
+							place.getEndDate().compareTo(endDate) <= 0) {
+						pq.add(place);
+					}
+				}
+			}
 		}
 		for (int i = 0; i < 5; i++) {
 			Place place = pq.poll();
@@ -62,6 +68,24 @@ public class Country {
 			}
 		}
 		return top5;
+	}
+	
+	/*
+	 * get best price from a country
+	 */
+	public Place bestPrice() {
+		double bestPrice = Double.MAX_VALUE;
+		Place best = null;
+		for (District district : districts) {
+			Place place = district.bestPrice();
+			if(place != null) {
+				if (place.getPricePerDay() < bestPrice) {
+					best = place;
+					bestPrice = place.getPricePerDay();
+				}
+			}
+		}
+		return best;
 	}
 	
 }

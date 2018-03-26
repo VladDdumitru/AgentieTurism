@@ -6,23 +6,34 @@ import java.util.*;
 public class Main {
 
 	/*
-	 * Number of places and cities
+	 * Number of places
+	 * Number of cities
+	 * filename to read places
 	 * (for testing)
 	 */
 	private static final int N = 20;
 	private static int noCities;
 	private static String filename = "nume.txt";
 	
+	/*
+	 * use generateFilesWithPlaces method to generate a file with new places
+	 * N is the number of places
+	 * make some tests
+	 */
 	@SuppressWarnings("deprecation")
 	public static void main(String []args) {
 		Agency agency = new Agency();
 		noCities = (int)Math.pow(agency.N, 3) - 1;
-		//generateFilesWithPlaces();
+		generateFilesWithPlaces();
 		agency.generateData();
 		agency.readData(filename);
 		agency.printHierarchy();
 		agency.printHashtables();
+		
+		/* get info about a place */
 		agency.getPlace("Place17");
+		
+		/* get top5 and best price from a country, from a district and from a city */
 		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 		String startDate = "" + format.format(new Date(2018 - 1900, 0, 1));
 		String endDate = "" + format.format(new Date(2018 - 1900, 11, 1));
@@ -33,6 +44,11 @@ public class Main {
 				System.out.println(place.getPlaceName() + " - " + place.getPricePerDay());
 			}
 		}
+		Place best = agency.bestPriceCountry("Country0");
+		if (best != null) {
+			System.out.println("Country0 - Best Price");
+			System.out.println(best.getPlaceName() + " - " + best.getPricePerDay());
+		}
 		top5 = agency.getTop5District("District5", startDate, endDate);
 		System.out.println(" --- Top5 District5 --- ");
 		if (top5 != null) {
@@ -40,12 +56,22 @@ public class Main {
 				System.out.println(place.getPlaceName() + " - " + place.getPricePerDay());
 			}
 		}
+		best = agency.bestPriceDistrict("District5");
+		if (best != null) {
+			System.out.println("District5 - Best Price");
+			System.out.println(best.getPlaceName() + " - " + best.getPricePerDay());
+		}
 		top5 = agency.getTop5City("City20", startDate, endDate);
 		System.out.println(" --- Top5 City20 --- ");
 		if (top5 != null) {
 			for (Place place : top5) {
 				System.out.println(place.getPlaceName() + " - " + place.getPricePerDay());
 			}
+		}
+		best = agency.bestPriceCity("City20");
+		if (best != null) {
+			System.out.println("City20 - Best Price");
+			System.out.println(best.getPlaceName() + " - " + best.getPricePerDay());
 		}
 	}
 	
@@ -104,5 +130,4 @@ public class Main {
 			}
 		}
 	}
-	
 }

@@ -62,7 +62,7 @@ public class City {
 		});
 		for (Place place : places) {
 			if (place.getStartDate().compareTo(startDate) >= 0 &&
-					place.getEndDate().compareTo(endDate) <=0) {
+					place.getEndDate().compareTo(endDate) <= 0) {
 				pq.add(place);
 			}
 		}
@@ -73,5 +73,22 @@ public class City {
 			}
 		}
 		return top5;
+	}
+	
+	/*
+	 * get best price from a city
+	 */
+	public Place bestPrice() {
+		int index = 0;
+		for (int i = 1; i < places.size(); i++) {
+			if (places.get(i).getPricePerDay() < places.get(index).getPricePerDay()) {
+				index = i;
+			}
+		}
+		if (places.size() > 0) {
+			return places.get(index);
+		} else {
+			return null;
+		}
 	}
 }
