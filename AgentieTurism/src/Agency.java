@@ -28,23 +28,29 @@ public class Agency {
 		}
 	}
 	
-	public void getTop5City(String cityName, String startDate, String endDate) {
+	@SuppressWarnings("finally")
+	public List<Place> getTop5City(String cityName, String startDate, String endDate) {
+		List<Place> top5 = null;
 		try {
 			City city = hashCity.get(cityName);
-			List<Place> top5 = city.getTop5(startDate, endDate);
-			System.out.println(top5);
+			top5 = city.getTop5(startDate, endDate);
 		} catch (NullPointerException e) {
 			System.out.println("This is not a city");
+		} finally {
+			return top5;
 		}
 	}
 	
-	public void getTop5District(String districtName, String startDate, String endDate) {
+	@SuppressWarnings("finally")
+	public List<Place> getTop5District(String districtName, String startDate, String endDate) {
+		List<Place> top5 = null;
 		try {
 			District district = hashDistrict.get(districtName);
-			List<Place> top5 = district.getTop5(startDate, endDate);
-			System.out.println(top5);
+			top5 = district.getTop5(startDate, endDate);
 		} catch (NullPointerException e) {
-			System.out.println("This is not a city");
+			System.out.println("This is not a district");
+		} finally {
+			return top5;
 		}
 	}
 	
@@ -55,7 +61,7 @@ public class Agency {
 			Country country = hashCountry.get(countryName);
 			top5 = country.getTop5(startDate, endDate);
 		} catch (NullPointerException e) {
-			System.out.println("This is not a city");
+			System.out.println("This is not a country");
 		} finally {
 			return top5;
 		}
@@ -66,7 +72,7 @@ public class Agency {
 	 */
 	public void printHashtables() {
 		System.out.println(hashPlace);
-		System.out.println(hashCity);
+		System.out.println(hashCity); 
 		System.out.println(hashDistrict);
 	}
 	

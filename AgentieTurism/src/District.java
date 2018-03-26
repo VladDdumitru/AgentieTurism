@@ -41,6 +41,9 @@ public class District {
 		return null;
 	}
 	
+	/*
+	 * get top5 places from a district
+	 */
 	public List<Place> getTop5(String startDate, String endDate) {
 		List<Place> top5 = new Vector<>();
 		PriorityQueue<Place> pq = new PriorityQueue<>(new Comparator<Place>() {

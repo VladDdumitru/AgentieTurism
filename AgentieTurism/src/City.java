@@ -46,7 +46,10 @@ public class City {
 		}
 		return null;
 	}
-	
+
+	/*
+	 * get top5 places from a city
+	 */
 	public List<Place> getTop5(String startDate, String endDate) {
 		List<Place> top5 = new Vector<>();
 		PriorityQueue<Place> pq = new PriorityQueue<>(new Comparator<Place>() {

@@ -26,11 +26,26 @@ public class Main {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 		String startDate = "" + format.format(new Date(2018 - 1900, 0, 1));
 		String endDate = "" + format.format(new Date(2018 - 1900, 11, 1));
-		System.out.println(startDate);
-		System.out.println(endDate);
 		List<Place> top5 = agency.getTop5Country("Country0", startDate, endDate);
-		for (Place place : top5) {
-			System.out.println(place.getPlaceName() + " - " + place.getPricePerDay());
+		System.out.println(" --- Top5 Country0 --- ");
+		if (top5 != null) {
+			for (Place place : top5) {
+				System.out.println(place.getPlaceName() + " - " + place.getPricePerDay());
+			}
+		}
+		top5 = agency.getTop5District("District5", startDate, endDate);
+		System.out.println(" --- Top5 District5 --- ");
+		if (top5 != null) {
+			for (Place place : top5) {
+				System.out.println(place.getPlaceName() + " - " + place.getPricePerDay());
+			}
+		}
+		top5 = agency.getTop5City("City20", startDate, endDate);
+		System.out.println(" --- Top5 City20 --- ");
+		if (top5 != null) {
+			for (Place place : top5) {
+				System.out.println(place.getPlaceName() + " - " + place.getPricePerDay());
+			}
 		}
 	}
 	

@@ -19,7 +19,7 @@ public class Place {
 	}
 
 	/*
-	 * print infos
+	 * print info about a place
 	 */
 	public void printInfo() {
 		System.out.println("---- " + placeName + " ----");
